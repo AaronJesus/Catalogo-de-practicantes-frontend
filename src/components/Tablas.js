@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { activar, startGetPrac } from "../actions/prac";
+import Swal from "sweetalert2";
 
 export const Tablas = () => {
   const dispatch = useDispatch();
@@ -18,10 +19,18 @@ export const Tablas = () => {
     navigate(`/editar/${id}`);
   };
   const handleActivar = (id) => {
-    dispatch(activar(id));
-    setTimeout(() => {
-      window.location.reload();
-    }, 500);
+    Swal.fire({
+      title: "Quiere activar al practicante?",
+      showCancelButton: true,
+      confirmButtonText: "Continuar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(activar(id));
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+    });
   };
 
   return (

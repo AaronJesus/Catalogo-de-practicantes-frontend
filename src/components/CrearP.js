@@ -10,15 +10,6 @@ import { startNewPrac } from "../actions/prac";
 
 export const CrearP = () => {
   const dispacth = useDispatch();
-  const handleCrear = (e) => {
-    e.preventDefault();
-    fechaNac = startDate;
-    isFormValid()
-      ? dispacth(
-          startNewPrac(nombres, apellidos, genero, correo, numTel, horario)
-        )
-      : console.log("nel");
-  };
 
   const isFormValid = () => {
     if (nombres.trim().length === 0) {
@@ -56,6 +47,19 @@ export const CrearP = () => {
     fechaNac: "",
     activo: true,
   });
+
+  const handleCrear = (e) => {
+    e.preventDefault();
+    fechaNac = startDate;
+    if (isFormValid()) {
+      dispacth(
+        startNewPrac(nombres, apellidos, genero, correo, numTel, CLABE, horario)
+      );
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  };
   const { nombres, apellidos, genero, correo, numTel, CLABE, horario } =
     formValues;
   let { fechaNac } = formValues;

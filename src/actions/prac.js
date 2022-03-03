@@ -23,10 +23,15 @@ export const startNewPrac = (
           horario,
         }
       );
-      Swal.fire("Listo", "Los campos fueron llenados correctamente", "success");
+      Swal.fire({
+        icon: "success",
+        title: "Los datos fueron llenados correctamente",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       dispacth(newPrac(data));
     } catch (error) {
-      console.log(error);
+      Swal.fire("Error", toString(error), "error");
     }
   };
 };
@@ -57,7 +62,12 @@ export const editPrac = (
           horario,
         }
       );
-      Swal.fire("Listo", "Los campos fueron editados correctamente", "success");
+      Swal.fire({
+        icon: "success",
+        title: "Los datos fueron llenados correctamente",
+        showConfirmButton: false,
+        timer: 500,
+      });
     } catch (error) {
       Swal.fire("Error", toString(error), "error");
     }
@@ -71,9 +81,14 @@ export const activar = (id) => {
         `https://catalogo-de-practicantes-back.herokuapp.com/api/practicantes/${id}`,
         {}
       );
-      Swal.fire("Listo", "El estado activo cambio", "success");
+      Swal.fire({
+        icon: "success",
+        title: "El estado activo cambio",
+        showConfirmButton: false,
+        timer: 500,
+      });
     } catch (error) {
-      console.log(error);
+      Swal.fire("Error", toString(error), "error");
     }
   };
 };
@@ -89,7 +104,7 @@ export const startGetPrac = () => {
         .catch();
       dispatch(getPracs(data));
     } catch (error) {
-      console.log(error);
+      Swal.fire("Error", toString(error), "error");
     }
   };
 };
@@ -109,7 +124,7 @@ export const startGetDatos = (id) => {
         .catch();
       dispatch(getDatos(data));
     } catch (error) {
-      console.log(error);
+      Swal.fire("Error", toString(error), "error");
     }
   };
 };

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { startGetDatos, activar } from "../actions/prac";
 import { Nada } from "../helpers/Nada";
 import { DetallesForm } from "./DetallesForm";
@@ -25,9 +26,19 @@ export const DetallesP = () => {
     navigate(`/editar/${practicante.id}`);
   };
 
-  const handleActivar = (e) => {
-    e.preventDefault();
-    dispatch(activar(practicante.id));
+  const handleActivar = (id) => {
+    Swal.fire({
+      title: "Quiere activar al practicante?",
+      showCancelButton: true,
+      confirmButtonText: "Continuar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(activar(id));
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+    });
   };
 
   return (
@@ -48,7 +59,7 @@ export const DetallesP = () => {
           </button>
           <button
             className="btn btn-success btn-lg m-2"
-            onClick={handleActivar}
+            onClick={() => handleActivar(practicante.id)}
           >
             Activar
           </button>

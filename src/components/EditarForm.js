@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/useForm";
 import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import validator from "validator";
 
 export const EditarForm = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const ruta = location.pathname.split("/").pop();
   const dispatch = useDispatch();
@@ -46,19 +47,14 @@ export const EditarForm = () => {
   const handleCrear = (e) => {
     e.preventDefault();
     //fechaNac = moment(startDate).format("MM Do YYYY");
-    isFormValid()
-      ? dispatch(
-          editPrac(
-            ruta,
-            nombreP,
-            apellidoP,
-            generoP,
-            correoP,
-            numTelP,
-            horarioP
-          )
-        )
-      : console.log("nel");
+    if (isFormValid()) {
+      dispatch(
+        editPrac(ruta, nombreP, apellidoP, generoP, correoP, numTelP, horarioP)
+      );
+      setTimeout(() => {
+        navigate(-1);
+      }, 1000);
+    }
   };
 
   const isFormValid = () => {
@@ -128,7 +124,6 @@ export const EditarForm = () => {
                     value="Femenino"
                     name="generoP"
                     onChange={handleInputChange}
-                    checked={checkRadio("Femenino")}
                   />
                   Femenino
                 </label>
@@ -140,7 +135,6 @@ export const EditarForm = () => {
                     value="Masculino"
                     name="generoP"
                     onChange={handleInputChange}
-                    checked={checkRadio("Masculino")}
                   />
                   Masculino
                 </label>
