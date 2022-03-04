@@ -50,10 +50,19 @@ export const CrearP = () => {
 
   const handleCrear = (e) => {
     e.preventDefault();
-    fechaNac = startDate;
     if (isFormValid()) {
+      fechaNac = startDate.toISOString();
       dispacth(
-        startNewPrac(nombres, apellidos, genero, correo, numTel, CLABE, horario)
+        startNewPrac(
+          nombres,
+          apellidos,
+          genero,
+          correo,
+          numTel,
+          CLABE,
+          horario,
+          fechaNac
+        )
       );
       setTimeout(() => {
         window.location.reload();

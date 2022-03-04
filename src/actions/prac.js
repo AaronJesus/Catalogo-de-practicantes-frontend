@@ -8,7 +8,9 @@ export const startNewPrac = (
   genero,
   correo,
   telefono,
-  horario
+  clabeInterbancaria,
+  horario,
+  fechaNacimiento
 ) => {
   return async (dispacth) => {
     try {
@@ -20,7 +22,9 @@ export const startNewPrac = (
           genero,
           correo,
           telefono,
+          clabeInterbancaria,
           horario,
+          fechaNacimiento,
         }
       );
       Swal.fire({
