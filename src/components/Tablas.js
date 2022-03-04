@@ -3,15 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { activar, startGetPrac } from "../actions/prac";
 import Swal from "sweetalert2";
+import { useForm } from "../hooks/useForm";
 
 export const Tablas = () => {
   const dispatch = useDispatch();
-
   const { practicantes } = useSelector((state) => state.practicantes);
   useEffect(() => {
     dispatch(startGetPrac());
   }, [dispatch]);
   const navigate = useNavigate();
+
   const handleVer = (id) => {
     navigate(`/detalles/${id}`);
   };

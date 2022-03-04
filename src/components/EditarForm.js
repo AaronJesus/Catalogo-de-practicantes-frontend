@@ -4,6 +4,7 @@ import { useForm } from "../hooks/useForm";
 import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
 import { startGetDatos, editPrac } from "../actions/prac";
+import moment from "moment";
 import Swal from "sweetalert2";
 import validator from "validator";
 
@@ -26,7 +27,7 @@ export const EditarForm = () => {
     telefono,
     clabeInterbancaria,
     horario,
-    fechaNac,
+    fechaNacimiento,
   } = practicante;
 
   const [formValues, handleInputChange] = useForm({
@@ -37,19 +38,33 @@ export const EditarForm = () => {
     numTelP: telefono,
     CLABEP: clabeInterbancaria,
     horarioP: horario,
-    fechaNacP: fechaNac,
+    fechaNacP: fechaNacimiento,
   });
   const { nombreP, apellidoP, generoP, correoP, numTelP, CLABEP, horarioP } =
     formValues;
-  //let { fechaNac } = formValues;
-  const [startDate, setStartDate] = useState(new Date());
+
+  let { fechaNacP } = formValues;
+  fechaNacP = moment(fechaNacP, "DD/MM/YYYY");
+  fechaNacP = new Date(fechaNacP);
+
+  const [startDate, setStartDate] = useState(fechaNacP);
 
   const handleCrear = (e) => {
     e.preventDefault();
-    //fechaNac = moment(startDate).format("MM Do YYYY");
+    fechaNacP = startDate.toISOString();
     if (isFormValid()) {
       dispatch(
-        editPrac(ruta, nombreP, apellidoP, generoP, correoP, numTelP, horarioP)
+        editPrac(
+          ruta,
+          nombreP,
+          apellidoP,
+          generoP,
+          correoP,
+          numTelP,
+          CLABEP,
+          horarioP,
+          fechaNacP
+        )
       );
       setTimeout(() => {
         navigate(-1);
@@ -212,9 +227,10 @@ export const EditarForm = () => {
             <div className="w-75">
               <DatePicker
                 className=" form-control w-100"
+                dateFormat={"dd/MM/yyyy"}
                 selected={startDate}
                 name="fechaNacP"
-                onChange={(date) => setStartDate(date)}
+                onChange={(fechaNacP) => setStartDate(fechaNacP)}
               />
             </div>
           </div>

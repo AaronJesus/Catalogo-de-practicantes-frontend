@@ -47,7 +47,9 @@ export const editPrac = (
   genero,
   correo,
   telefono,
-  horario
+  clabeInterbancaria,
+  horario,
+  fechaNacimiento
 ) => {
   return async () => {
     try {
@@ -59,7 +61,9 @@ export const editPrac = (
           genero,
           correo,
           telefono,
+          clabeInterbancaria,
           horario,
+          fechaNacimiento,
         }
       );
       Swal.fire({

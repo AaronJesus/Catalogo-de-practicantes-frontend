@@ -22,9 +22,8 @@ export const DetallesForm = () => {
     telefono,
     clabeInterbancaria,
     horario,
-    fechaNac,
+    fechaNacimiento,
   } = practicante;
-
   return (
     <>
       {practicante !== undefined ? (
@@ -96,7 +95,7 @@ export const DetallesForm = () => {
               <h5 className="align-middle m-1">Fecha de nacimiento</h5>
               <div className="form-group w-75">
                 <span type="text" className="form-control-plaintext">
-                  {fechaNac ? fechaNac : "-----"}
+                  {fechaNacimiento ? fechaNacimiento : "-----"}
                 </span>
               </div>
             </div>
